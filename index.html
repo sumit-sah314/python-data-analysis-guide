@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Perform Basic Data Analysis in Python</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Password Protection Modal -->
+    <div id="password-modal" class="password-modal">
+        <div class="password-container">
+            <h2>🔒 Protected Content</h2>
+            <p>Please enter the password to access this page</p>
+            <input type="password" id="password-input" placeholder="Enter password" autocomplete="off">
+            <button onclick="checkPassword()">Submit</button>
+            <p id="error-message" class="error-message"></p>
+        </div>
+    </div>
+
+    <!-- Main Content (hidden by default) -->
+    <div id="protected-content" style="display: none;">
+    <nav class="sidebar">
+        <div class="nav-header">
+            <h2>Contents</h2>
+        </div>
+        <ul>
+            <li><a href="#introduction">Introduction</a></li>
+            <li><a href="#audience">Who This Is For</a></li>
+            <li><a href="#materials">Materials Needed</a></li>
+            <li><a href="#instructions">Step-by-Step Instructions</a></li>
+            <li><a href="#troubleshooting">Troubleshooting</a></li>
+        </ul>
+    </nav>
+
+    <main class="content">
+        <header class="hero">
+            <h1>How to Perform Basic Data Analysis in Python</h1>
+            <p class="subtitle">A beginner's guide to analyzing data with Python</p>
+        </header>
+
+        <section id="introduction" class="section">
+            <h2>Introduction</h2>
+            <div class="intro-content">
+                <p class="why-learn"><strong>Why learn this?</strong> Python is one of the most widely used languages for data analysis, and learning the basics helps users complete academic projects, explore personal data, and begin developing data science skills.</p>
+                
+                <div class="overview-box">
+                    <h3>What You'll Learn</h3>
+                    <p>In this guide, you will learn how to install Python libraries, load a dataset, inspect and clean the data, run simple analysis, create visualizations, and save the results.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="audience" class="section">
+            <h2>Who This Is For</h2>
+            <div class="audience-grid">
+                <div class="audience-card">
+                    <h3>👤 Target Audience</h3>
+                    <p>Beginners who want to learn how to perform simple data analysis using Python for schoolwork, personal projects, or introductory data science practice.</p>
+                </div>
+                <div class="audience-card">
+                    <h3>📚 Prerequisites</h3>
+                    <p>You should know how to install basic software and open files, but don't need to know about Python libraries, data importing, or dataset cleaning.</p>
+                </div>
+                <div class="audience-card">
+                    <h3>🎯 Expertise Level</h3>
+                    <p>Beginner-level Python users with minimal familiarity with data analysis.</p>
+                </div>
+                <div class="audience-card">
+                    <h3>🏠 Setting</h3>
+                    <p>These instructions are designed for calm, non-emergency environments such as at home, in a computer lab, or in a classroom.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="materials" class="section">
+            <h2>Materials & Equipment Needed</h2>
+            <ul class="materials-list">
+                <li>A computer with Python 3.8 or newer installed</li>
+                <li>Internet access (recommended for installing libraries)</li>
+                <li>Jupyter Notebook, Google Colab, or a Python IDE (VS Code, PyCharm, etc.)</li>
+                <li>A CSV dataset saved on the computer</li>
+                <li>Python libraries: pandas, numpy, matplotlib</li>
+            </ul>
+
+            <div class="warning-box">
+                <h3>⚠️ Important Information</h3>
+                <ul>
+                    <li>Installing Python or libraries may require administrator permissions.</li>
+                    <li>The dataset should not include sensitive or personal information.</li>
+                    <li>File names must be spelled correctly to avoid "FileNotFoundError" issues.</li>
+                    <li>Save work frequently to avoid losing progress.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="instructions" class="section">
+            <h2>Step-by-Step Instructions</h2>
+
+            <div class="step">
+                <div class="step-header">
+                    <span class="step-number">1</span>
+                    <h3>Install the Required Python Libraries</h3>
+                </div>
+                <p>Open a terminal or command prompt and install the needed libraries:</p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code>pip install pandas numpy matplotlib</code></pre>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <span class="step-number">2</span>
+                    <h3>Open a Python Notebook or Script</h3>
+                </div>
+                <p>Launch Jupyter Notebook, Google Colab, or a Python IDE. (For beginners who do not have an IDE installed, VS Code is a free option.)</p>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <span class="step-number">3</span>
+                    <h3>Import the Data Analysis Libraries</h3>
+                </div>
+                <p>At the top of your file, enter:</p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code>import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt</code></pre>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <span class="step-number">4</span>
+                    <h3>Load Your CSV Dataset</h3>
+                </div>
+                <p>Place your CSV file in an accessible location and load it:</p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code>df = pd.read_csv("dataset.csv")</code></pre>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <span class="step-number">5</span>
+                    <h3>Inspect the Dataset</h3>
+                </div>
+                <p>Preview the data using:</p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code>df.head()
+df.info()
+df.describe()</code></pre>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <span class="step-number">6</span>
+                    <h3>Clean Missing or Duplicate Data</h3>
+                </div>
+                <p>Remove incomplete or repeated entries:</p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code>df = df.dropna()
+df = df.drop_duplicates()</code></pre>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <span class="step-number">7</span>
+                    <h3>Perform Basic Data Analysis</h3>
+                </div>
+                <p>Run basic calculations such as averages or correlations:</p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code>df["column_name"].mean()
+df.corr()
+np.mean(df["column_name"])</code></pre>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <span class="step-number">8</span>
+                    <h3>Visualize the Data</h3>
+                </div>
+                <p>Create a basic plot:</p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code>plt.plot(df["column_name"])
+plt.show()</code></pre>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <span class="step-number">9</span>
+                    <h3>Save the Cleaned or Analyzed Dataset</h3>
+                </div>
+                <p>Export your file:</p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code>df.to_csv("cleaned_data.csv", index=False)</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <section id="troubleshooting" class="section">
+            <h2>Troubleshooting & FAQ</h2>
+
+            <div class="faq-item">
+                <h3>Problem 1: "pip is not recognized"</h3>
+                <p><strong>Cause:</strong> Python was not added to PATH.</p>
+                <p><strong>Fix:</strong> Reinstall Python and select "Add Python to PATH," then restart the terminal.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Problem 2: "FileNotFoundError" when loading the CSV</h3>
+                <p><strong>Cause:</strong> File name or path does not match.</p>
+                <p><strong>Fix:</strong> Check the spelling, confirm the folder location, or use a full file path.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Problem 3: "ModuleNotFoundError: No module named 'pandas'"</h3>
+                <p><strong>Cause:</strong> Required libraries were not installed.</p>
+                <p><strong>Fix:</strong> Install the libraries again:</p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code>pip install pandas numpy matplotlib</code></pre>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <h3>Problem 4: Plot does not appear</h3>
+                <p><strong>Cause:</strong> Some environments require an explicit display command.</p>
+                <p><strong>Fix:</strong> Make sure to include:</p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code>plt.show()</code></pre>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <h3>Problem 5: Syntax or Indentation Errors</h3>
+                <p><strong>Cause:</strong> Missing quotes, parentheses, or incorrect spacing.</p>
+                <p><strong>Fix:</strong> Check for typos or inconsistent indentation.</p>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>Created by Sumit Sah | Python Data Analysis Tutorial</p>
+        </footer>
+    </main>
+    </div>
+    <!-- End Protected Content -->
+
+    <script src="auth.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
