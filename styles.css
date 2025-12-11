@@ -21,6 +21,10 @@
     --hover-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     line-height: 1.6;
@@ -28,6 +32,25 @@ body {
     background-color: var(--bg-color);
     display: flex;
     min-height: 100vh;
+}
+
+/* Mobile Menu Toggle */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 1rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    color: var(--primary-color);
+}
+
+.menu-toggle.active {
+    display: block;
 }
 
 /* Sidebar Navigation */
@@ -40,6 +63,7 @@ body {
     overflow-y: auto;
     padding: 2rem 0;
     box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+    z-index: 100;
 }
 
 .nav-header {
@@ -51,6 +75,7 @@ body {
 .nav-header h2 {
     color: var(--primary-color);
     font-size: 1.5rem;
+    word-break: break-word;
 }
 
 .sidebar ul {
@@ -69,9 +94,11 @@ body {
     text-decoration: none;
     transition: all 0.3s ease;
     border-left: 3px solid transparent;
+    font-size: 0.95rem;
 }
 
-.sidebar a:hover {
+.sidebar a:hover,
+.sidebar a.active {
     background-color: #f1f5f9;
     border-left-color: var(--primary-color);
     color: var(--primary-color);
@@ -83,21 +110,29 @@ body {
     margin-left: 280px;
     padding: 2rem;
     max-width: 1200px;
+    width: 100%;
 }
 
 /* Hero Section */
 .hero {
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     color: white;
-    padding: 3rem 2rem;
+    padding: 2.5rem 2rem;
     border-radius: 12px;
     margin-bottom: 3rem;
     box-shadow: var(--hover-shadow);
 }
 
 .hero h1 {
-    font-size: 2.5rem;
+    font-size: 2rem;
     margin-bottom: 0.5rem;
+    line-height: 1.3;
+}
+
+.hero .subtitle {
+    font-size: 1.1rem;
+    opacity: 0.95;
+}
     font-weight: 700;
 }
 
@@ -710,5 +745,451 @@ html {
 
 .footer small {
     opacity: 0.8;
+}
+
+/* Responsive Media Queries */
+
+/* Tablets and smaller desktops */
+@media (max-width: 1024px) {
+    .sidebar {
+        width: 240px;
+    }
+
+    .content {
+        margin-left: 240px;
+        padding: 1.5rem;
+    }
+
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+
+    .section {
+        padding: 1.5rem;
+    }
+
+    .step {
+        margin: 1.5rem 0;
+    }
+
+    .code-block {
+        font-size: 0.85rem;
+    }
+}
+
+/* Tablets */
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+        padding: 0;
+        box-shadow: none;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        overflow: visible;
+    }
+
+    .sidebar.active {
+        transform: translateX(0);
+    }
+
+    .nav-header {
+        padding: 1rem 1.5rem;
+        margin-bottom: 0;
+    }
+
+    .nav-header h2 {
+        font-size: 1.3rem;
+    }
+
+    .sidebar ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        padding: 1rem 1.5rem;
+    }
+
+    .sidebar li {
+        flex: 0 1 calc(50% - 0.25rem);
+    }
+
+    .sidebar a {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+        border-left: none;
+        border-bottom: 2px solid transparent;
+    }
+
+    .sidebar a:hover,
+    .sidebar a.active {
+        border-left: none;
+        border-bottom-color: var(--primary-color);
+    }
+
+    .content {
+        flex: 1;
+        margin-left: 0;
+        padding: 1rem;
+        width: 100%;
+    }
+
+    #protected-content {
+        flex-direction: column;
+    }
+
+    .hero {
+        padding: 1.5rem 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .hero .subtitle {
+        font-size: 1rem;
+    }
+
+    .section {
+        padding: 1rem;
+        margin: 1rem 0;
+    }
+
+    .section h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .step {
+        margin: 1rem 0;
+        padding: 1rem;
+    }
+
+    .step-header {
+        flex-wrap: wrap;
+    }
+
+    .step-number {
+        font-size: 1.5rem;
+        margin-right: 1rem;
+    }
+
+    .step-header h3 {
+        font-size: 1.2rem;
+    }
+
+    .audience-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .audience-card {
+        padding: 1rem;
+    }
+
+    .code-block {
+        font-size: 0.8rem;
+        padding: 1rem;
+    }
+
+    .copy-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+    }
+
+    .example-box {
+        padding: 1rem;
+    }
+
+    .output-box {
+        padding: 1rem;
+        font-size: 0.8rem;
+    }
+
+    .output-box pre {
+        font-size: 0.8rem;
+        line-height: 1.4;
+    }
+
+    .concept-box {
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+    }
+
+    .stat-concept {
+        padding: 0.75rem;
+        margin: 1rem 0;
+    }
+
+    .stat-concept h4 {
+        font-size: 1rem;
+    }
+
+    .materials-list li {
+        padding: 0.5rem 0 0.5rem 1.5rem;
+        font-size: 1rem;
+    }
+
+    .footer {
+        padding: 1.5rem;
+        margin-top: 2rem;
+    }
+
+    .footer p {
+        font-size: 0.9rem;
+    }
+}
+
+/* Mobile phones */
+@media (max-width: 480px) {
+    body {
+        font-size: 14px;
+    }
+
+    .menu-toggle {
+        font-size: 1.3rem;
+        padding: 0.75rem;
+    }
+
+    .sidebar {
+        width: 100%;
+        max-height: 60vh;
+        overflow-y: auto;
+    }
+
+    .sidebar ul {
+        flex-direction: column;
+        padding: 0.5rem;
+    }
+
+    .sidebar li {
+        flex: 1 0 100%;
+    }
+
+    .sidebar a {
+        padding: 0.75rem 1rem;
+        font-size: 0.85rem;
+    }
+
+    .content {
+        padding: 0.75rem;
+        margin-left: 0;
+    }
+
+    .hero {
+        padding: 1.25rem 1rem;
+        margin-bottom: 1rem;
+        border-radius: 8px;
+    }
+
+    .hero h1 {
+        font-size: 1.25rem;
+        line-height: 1.2;
+    }
+
+    .hero .subtitle {
+        font-size: 0.9rem;
+    }
+
+    .section {
+        padding: 0.75rem;
+        margin: 0.75rem 0;
+    }
+
+    .section h2 {
+        font-size: 1.3rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .section h3 {
+        font-size: 1.1rem;
+    }
+
+    .step {
+        margin: 0.75rem 0;
+        padding: 0.75rem;
+    }
+
+    .step-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .step-number {
+        font-size: 1.3rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .step-header h3 {
+        font-size: 1.1rem;
+    }
+
+    .audience-grid {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+
+    .audience-card {
+        padding: 0.75rem;
+    }
+
+    .audience-card h3 {
+        font-size: 1rem;
+    }
+
+    .code-block {
+        padding: 0.75rem;
+        font-size: 0.75rem;
+        margin: 0.75rem 0;
+    }
+
+    .copy-btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+    }
+
+    .example-box {
+        padding: 0.75rem;
+    }
+
+    .output-box {
+        padding: 0.75rem;
+        font-size: 0.75rem;
+    }
+
+    .output-box pre {
+        font-size: 0.75rem;
+        line-height: 1.3;
+    }
+
+    .concept-box {
+        padding: 1rem;
+        margin: 1rem 0;
+    }
+
+    .concept-box h3 {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+    }
+
+    .stat-concept {
+        padding: 0.5rem;
+        margin: 0.75rem 0;
+    }
+
+    .stat-concept h4 {
+        font-size: 0.95rem;
+    }
+
+    .stat-concept p {
+        font-size: 0.9rem;
+    }
+
+    .overview-box {
+        padding: 1rem;
+    }
+
+    .overview-box h3 {
+        font-size: 1.1rem;
+    }
+
+    .learning-outcomes {
+        padding: 1rem;
+        margin-top: 1rem;
+    }
+
+    .learning-outcomes h3 {
+        font-size: 1.1rem;
+    }
+
+    .materials-list li {
+        padding: 0.4rem 0 0.4rem 1.5rem;
+        font-size: 0.9rem;
+    }
+
+    .warning-box {
+        padding: 1rem;
+    }
+
+    .warning-box h3 {
+        font-size: 1.05rem;
+    }
+
+    .faq-item {
+        padding: 0.75rem;
+        margin: 0.75rem 0;
+    }
+
+    .faq-item h3 {
+        font-size: 1rem;
+    }
+
+    .credits-content h3 {
+        font-size: 1.05rem;
+    }
+
+    .footer {
+        padding: 1rem;
+        margin-top: 1.5rem;
+    }
+
+    .footer p {
+        font-size: 0.8rem;
+        margin: 0.35rem 0;
+    }
+
+    .password-modal {
+        padding: 1rem;
+    }
+
+    .password-container {
+        padding: 1.5rem;
+        width: 90vw;
+        max-width: 400px;
+    }
+
+    .password-container h2 {
+        font-size: 1.3rem;
+    }
+
+    .password-container input {
+        font-size: 1rem;
+    }
+
+    .password-container button {
+        font-size: 0.95rem;
+        padding: 0.6rem 1.2rem;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 360px) {
+    .hero h1 {
+        font-size: 1.1rem;
+    }
+
+    .section h2 {
+        font-size: 1.2rem;
+    }
+
+    .code-block {
+        font-size: 0.7rem;
+    }
+
+    .step-number {
+        font-size: 1.2rem;
+    }
 }
 

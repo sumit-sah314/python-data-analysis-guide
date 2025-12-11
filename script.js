@@ -1,3 +1,24 @@
+// Mobile menu toggle
+function toggleMenu() {
+    const sidebar = document.querySelector('.sidebar');
+    const menuToggle = document.getElementById('menuToggle');
+    sidebar.classList.toggle('active');
+    menuToggle.classList.toggle('active');
+}
+
+// Close menu when a link is clicked
+document.addEventListener('DOMContentLoaded', () => {
+    const navLinks = document.querySelectorAll('.sidebar a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            const sidebar = document.querySelector('.sidebar');
+            const menuToggle = document.getElementById('menuToggle');
+            sidebar.classList.remove('active');
+            menuToggle.classList.remove('active');
+        });
+    });
+});
+
 // Copy code functionality
 function copyCode(button) {
     const codeBlock = button.nextElementSibling;
