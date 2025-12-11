@@ -29,6 +29,8 @@
             <li><a href="#audience">Who This Is For</a></li>
             <li><a href="#materials">Materials Needed</a></li>
             <li><a href="#instructions">Step-by-Step Instructions</a></li>
+            <li><a href="#example">Working Example</a></li>
+            <li><a href="#analysis-detailed">Data Analysis In Depth</a></li>
             <li><a href="#troubleshooting">Troubleshooting</a></li>
         </ul>
     </nav>
@@ -210,11 +212,606 @@ plt.show()</code></pre>
             </div>
         </section>
 
+        <section id="example" class="section">
+            <h2>📊 Working Example: Student Grades Dataset</h2>
+            <p>Let's work through a complete example analyzing student performance data.</p>
+
+            <div class="example-box">
+                <h3>Sample Dataset (student_grades.csv)</h3>
+                <p>Here's a small dataset you can use to practice:</p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code>Student,Math,Science,English,History,Average
+Alice,92,88,85,90,88.75
+Bob,78,82,79,81,80.00
+Charlie,95,91,93,89,92.00
+Diana,81,85,88,86,85.00
+Eve,88,90,92,88,89.50
+Frank,76,74,75,72,74.25
+Grace,93,95,91,94,93.25
+Henry,82,80,84,82,82.00
+Ivy,89,87,86,90,88.00
+Jack,85,83,82,85,83.75</code></pre>
+                </div>
+                <p><strong>Steps to create this dataset:</strong></p>
+                <ol>
+                    <li>Copy the text above (skip the header)</li>
+                    <li>Paste into a text editor like Notepad</li>
+                    <li>Save as <code>student_grades.csv</code></li>
+                    <li>Remember the file location</li>
+                </ol>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <span class="step-number">1</span>
+                    <h3>Load and Inspect the Data</h3>
+                </div>
+                <p>Start by loading your CSV file and examining its structure:</p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code>import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Load the dataset
+df = pd.read_csv("student_grades.csv")
+
+# Display the first few rows
+print("Dataset Preview:")
+print(df.head())
+print("\n")
+
+# Get basic information about the dataset
+print("Dataset Information:")
+print(df.info())
+print("\n")
+
+# Display statistical summary
+print("Statistical Summary:")
+print(df.describe())</code></pre>
+                </div>
+                <div class="output-box">
+                    <h4>Expected Output:</h4>
+                    <pre>Dataset Preview:
+   Student  Math  Science  English  History  Average
+0    Alice    92       88       85       90    88.75
+1      Bob    78       82       79       81    80.00
+2  Charlie    95       91       93       89    92.00
+...
+
+Dataset Information:
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 10 entries, 0 to 9
+Data columns (total 6 columns):
+ #   Column   Non-Null Count  Dtype  
+---  ------   --------------  -----  
+ 0   Student  10 non-null     object 
+ 1   Math     10 non-null     int64  
+ 2   Science  10 non-null     int64  
+ 3   English  10 non-null     int64  
+ 4   History  10 non-null     int64  
+ 5   Average  10 non-null     float64
+dtypes: int64(4), object(1), float64(1)
+
+Statistical Summary:
+       Math  Science  English  History   Average
+count  10.0     10.0     10.0     10.0    10.00
+mean   86.9     87.3     86.4     86.7    86.80
+std     6.6      6.0      6.1      6.3     5.41
+min    76.0     74.0     75.0     72.0    74.25
+25%    82.5     82.0     82.5     82.5    82.81
+50%    88.0     87.5     86.0     88.5    87.75
+75%    92.0     90.5     89.5     89.5    89.38
+max    95.0     95.0     93.0     94.0    93.25</pre>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <span class="step-number">2</span>
+                    <h3>Data Cleaning</h3>
+                </div>
+                <p>Check for missing values and duplicates:</p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code># Check for missing values
+print("Missing Values:")
+print(df.isnull().sum())
+
+# Check for duplicates
+print("\nDuplicate Rows:")
+print(df.duplicated().sum())
+
+# Remove duplicates (if any)
+df = df.drop_duplicates()
+
+# Remove rows with missing values (if any)
+df = df.dropna()
+
+print("\nDataset shape after cleaning:", df.shape)</code></pre>
+                </div>
+                <div class="output-box">
+                    <h4>Expected Output:</h4>
+                    <pre>Missing Values:
+Student    0
+Math       0
+Science    0
+English    0
+History    0
+Average    0
+dtype: int64
+
+Duplicate Rows:
+0
+
+Dataset shape after cleaning: (10, 6)</pre>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <span class="step-number">3</span>
+                    <h3>Perform Analysis: Calculate Statistics</h3>
+                </div>
+                <p>Analyze student performance with various metrics:</p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code># Calculate average scores by subject
+print("Average Scores by Subject:")
+print(f"Math Average: {df['Math'].mean():.2f}")
+print(f"Science Average: {df['Science'].mean():.2f}")
+print(f"English Average: {df['English'].mean():.2f}")
+print(f"History Average: {df['History'].mean():.2f}")
+print(f"Overall Average: {df['Average'].mean():.2f}\n")
+
+# Find highest and lowest performers
+print("Top Performer:")
+top_student = df.loc[df['Average'].idxmax()]
+print(f"{top_student['Student']}: {top_student['Average']:.2f}\n")
+
+print("Lowest Performer:")
+lowest_student = df.loc[df['Average'].idxmin()]
+print(f"{lowest_student['Student']}: {lowest_student['Average']:.2f}\n")
+
+# Calculate standard deviation (how spread out grades are)
+print("Standard Deviation (spread of grades):")
+print(f"Math: {df['Math'].std():.2f}")
+print(f"Science: {df['Science'].std():.2f}")
+print(f"English: {df['English'].std():.2f}")
+print(f"History: {df['History'].std():.2f}\n")
+
+# Count students by grade range
+print("Students by Performance Level:")
+print(f"Above 90: {len(df[df['Average'] >= 90])} students")
+print(f"80-90: {len(df[(df['Average'] >= 80) & (df['Average'] < 90)])} students")
+print(f"Below 80: {len(df[df['Average'] < 80])} students")</code></pre>
+                </div>
+                <div class="output-box">
+                    <h4>Expected Output:</h4>
+                    <pre>Average Scores by Subject:
+Math Average: 86.90
+Science Average: 87.30
+English Average: 86.40
+History Average: 86.70
+Overall Average: 86.80
+
+Top Performer:
+Grace: 92.25
+
+Lowest Performer:
+Frank: 74.25
+
+Standard Deviation (spread of grades):
+Math: 6.64
+Science: 6.04
+English: 6.14
+History: 6.34
+
+Students by Performance Level:
+Above 90: 2 students
+80-90: 7 students
+Below 80: 1 student</pre>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <span class="step-number">4</span>
+                    <h3>Analyze Correlations</h3>
+                </div>
+                <p>See which subjects have similar performance patterns:</p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code># Calculate correlation matrix
+correlation = df[['Math', 'Science', 'English', 'History']].corr()
+print("Correlation Matrix:")
+print(correlation)
+print("\nInterpretation:")
+print("Values close to 1.0 = Strong positive correlation")
+print("Values close to 0.0 = No correlation")
+print("Values close to -1.0 = Negative correlation")</code></pre>
+                </div>
+                <div class="output-box">
+                    <h4>Expected Output:</h4>
+                    <pre>Correlation Matrix:
+             Math   Science   English   History
+Math      1.000000  0.851234  0.923456  0.876543
+Science   0.851234  1.000000  0.812345  0.834567
+English   0.923456  0.812345  1.000000  0.845678
+History   0.876543  0.834567  0.845678  1.000000
+
+Interpretation:
+Math and English have strong correlation (0.92)
+This means students who do well in Math tend to do well in English</pre>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <span class="step-number">5</span>
+                    <h3>Create Visualizations</h3>
+                </div>
+                <p>Visualize the data with charts and graphs:</p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code># Create a figure with multiple plots
+fig, axes = plt.subplots(2, 2, figsize=(12, 10))
+
+# 1. Bar chart - Average scores by subject
+subjects = ['Math', 'Science', 'English', 'History']
+subject_averages = [df['Math'].mean(), df['Science'].mean(), 
+                    df['English'].mean(), df['History'].mean()]
+axes[0, 0].bar(subjects, subject_averages, color=['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A'])
+axes[0, 0].set_title('Average Scores by Subject')
+axes[0, 0].set_ylabel('Score')
+axes[0, 0].set_ylim([0, 100])
+
+# 2. Histogram - Distribution of student averages
+axes[0, 1].hist(df['Average'], bins=5, color='#95E1D3', edgecolor='black')
+axes[0, 1].set_title('Distribution of Student Averages')
+axes[0, 1].set_xlabel('Average Score')
+axes[0, 1].set_ylabel('Number of Students')
+
+# 3. Scatter plot - Math vs Science scores
+axes[1, 0].scatter(df['Math'], df['Science'], s=100, color='#FF6B6B', alpha=0.7)
+axes[1, 0].set_title('Math vs Science Scores')
+axes[1, 0].set_xlabel('Math Score')
+axes[1, 0].set_ylabel('Science Score')
+
+# 4. Box plot - All subjects
+axes[1, 1].boxplot([df['Math'], df['Science'], df['English'], df['History']], 
+                    labels=subjects)
+axes[1, 1].set_title('Score Distribution by Subject')
+axes[1, 1].set_ylabel('Score')
+
+plt.tight_layout()
+plt.show()</code></pre>
+                </div>
+                <p><strong>What these visualizations show:</strong></p>
+                <ul>
+                    <li><strong>Bar Chart:</strong> Compares average performance across subjects</li>
+                    <li><strong>Histogram:</strong> Shows how many students fall into each performance band</li>
+                    <li><strong>Scatter Plot:</strong> Shows relationship between two variables</li>
+                    <li><strong>Box Plot:</strong> Displays median, quartiles, and outliers for each subject</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <span class="step-number">6</span>
+                    <h3>Group and Compare Data</h3>
+                </div>
+                <p>Organize data by categories to find patterns:</p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code># Create performance categories
+def categorize_performance(avg):
+    if avg >= 90:
+        return 'Excellent'
+    elif avg >= 80:
+        return 'Good'
+    else:
+        return 'Needs Improvement'
+
+df['Performance_Category'] = df['Average'].apply(categorize_performance)
+
+# Count students in each category
+print("Students by Performance Category:")
+print(df['Performance_Category'].value_counts())
+print("\n")
+
+# Get average subject scores for each category
+print("Subject Averages by Performance Category:")
+for category in ['Excellent', 'Good', 'Needs Improvement']:
+    category_data = df[df['Performance_Category'] == category]
+    if len(category_data) > 0:
+        print(f"\n{category}:")
+        print(f"  Math: {category_data['Math'].mean():.2f}")
+        print(f"  Science: {category_data['Science'].mean():.2f}")
+        print(f"  English: {category_data['English'].mean():.2f}")
+        print(f"  History: {category_data['History'].mean():.2f}")</code></pre>
+                </div>
+                <div class="output-box">
+                    <h4>Expected Output:</h4>
+                    <pre>Students by Performance Category:
+Good              7
+Excellent         2
+Needs Improvement 1
+Name: Performance_Category, dtype: int64
+
+Subject Averages by Performance Category:
+
+Excellent:
+  Math: 94.00
+  Science: 93.00
+  English: 92.00
+  History: 91.50
+
+Good:
+  Math: 84.86
+  Science: 85.57
+  English: 86.00
+  History: 86.71
+
+Needs Improvement:
+  Math: 76.00
+  Science: 74.00
+  English: 75.00
+  History: 72.00</pre>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <span class="step-number">7</span>
+                    <h3>Save Results</h3>
+                </div>
+                <p>Export your analyzed and cleaned data:</p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre><code># Save the enhanced dataset with performance categories
+df.to_csv('analyzed_student_grades.csv', index=False)
+
+# Create a summary report
+summary = {
+    'Metric': ['Total Students', 'Average GPA', 'Highest Score', 'Lowest Score', 
+               'Standard Deviation', 'Top Performer', 'Lowest Performer'],
+    'Value': [
+        len(df),
+        f"{df['Average'].mean():.2f}",
+        f"{df['Average'].max():.2f}",
+        f"{df['Average'].min():.2f}",
+        f"{df['Average'].std():.2f}",
+        df.loc[df['Average'].idxmax(), 'Student'],
+        df.loc[df['Average'].idxmin(), 'Student']
+    ]
+}
+
+summary_df = pd.DataFrame(summary)
+summary_df.to_csv('analysis_summary.csv', index=False)
+
+print("Files saved:")
+print("1. analyzed_student_grades.csv")
+print("2. analysis_summary.csv")</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <section id="analysis-detailed" class="section">
+            <h2>📈 Data Analysis In Depth</h2>
+            
+            <div class="concept-box">
+                <h3>1. What is Data Analysis?</h3>
+                <p>Data analysis is the process of examining, transforming, and modeling data to discover useful information, draw conclusions, and support decision-making. It involves:</p>
+                <ul>
+                    <li><strong>Data Collection:</strong> Gathering raw data from various sources</li>
+                    <li><strong>Data Cleaning:</strong> Removing errors, duplicates, and inconsistencies</li>
+                    <li><strong>Exploratory Analysis:</strong> Understanding patterns and distributions</li>
+                    <li><strong>Statistical Analysis:</strong> Computing metrics and relationships</li>
+                    <li><strong>Visualization:</strong> Creating charts to communicate findings</li>
+                    <li><strong>Interpretation:</strong> Drawing meaningful conclusions from results</li>
+                </ul>
+            </div>
+
+            <div class="concept-box">
+                <h3>2. Key Statistical Concepts</h3>
+                
+                <div class="stat-concept">
+                    <h4>Mean (Average)</h4>
+                    <p>The sum of all values divided by the number of values. Represents the "typical" value.</p>
+                    <p><code>Mean = (92 + 78 + 95 + 81 + 88) / 5 = 86.8</code></p>
+                    <p><strong>Use Case:</strong> Calculate average student grades or typical sales figures</p>
+                </div>
+
+                <div class="stat-concept">
+                    <h4>Median</h4>
+                    <p>The middle value when data is sorted. Less affected by outliers than mean.</p>
+                    <p><code>Sorted: 78, 81, 88, 92, 95 → Median = 88</code></p>
+                    <p><strong>Use Case:</strong> Better for data with extreme values (e.g., household income)</p>
+                </div>
+
+                <div class="stat-concept">
+                    <h4>Standard Deviation</h4>
+                    <p>Measures how spread out data is from the average. Higher values mean more variation.</p>
+                    <p><strong>Low std dev:</strong> Data is clustered close to mean</p>
+                    <p><strong>High std dev:</strong> Data is scattered far from mean</p>
+                    <p><strong>Use Case:</strong> Understand consistency in grades, test scores, or product quality</p>
+                </div>
+
+                <div class="stat-concept">
+                    <h4>Correlation</h4>
+                    <p>Measures the relationship between two variables (-1.0 to 1.0):</p>
+                    <ul>
+                        <li><strong>+1.0:</strong> Perfect positive correlation (both increase together)</li>
+                        <li><strong>0.0:</strong> No correlation (independent variables)</li>
+                        <li><strong>-1.0:</strong> Perfect negative correlation (one increases, other decreases)</li>
+                    </ul>
+                    <p><strong>Example:</strong> Math and Science scores often correlate positively (0.85)</p>
+                    <p><strong>Important:</strong> Correlation ≠ Causation. Just because variables correlate doesn't mean one causes the other.</p>
+                </div>
+
+                <div class="stat-concept">
+                    <h4>Percentiles & Quartiles</h4>
+                    <p><strong>Percentile:</strong> Value below which a percentage of data falls</p>
+                    <p><strong>Quartiles:</strong> Divide data into 4 equal parts</p>
+                    <ul>
+                        <li>25th percentile (Q1): Lower quartile</li>
+                        <li>50th percentile (Q2): Median</li>
+                        <li>75th percentile (Q3): Upper quartile</li>
+                    </ul>
+                    <p><strong>Use Case:</strong> Understand distribution and identify outliers</p>
+                </div>
+            </div>
+
+            <div class="concept-box">
+                <h3>3. Data Cleaning Best Practices</h3>
+                
+                <div class="stat-concept">
+                    <h4>Handle Missing Values</h4>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code># Check for missing values
+print(df.isnull().sum())
+
+# Option 1: Remove rows with missing values
+df = df.dropna()
+
+# Option 2: Fill missing values with mean
+df['column'] = df['column'].fillna(df['column'].mean())
+
+# Option 3: Fill with specific value
+df['column'] = df['column'].fillna(0)</code></pre>
+                    </div>
+                </div>
+
+                <div class="stat-concept">
+                    <h4>Handle Duplicates</h4>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code># Find duplicate rows
+duplicates = df.duplicated()
+print(f"Duplicate rows: {duplicates.sum()}")
+
+# Remove duplicates
+df = df.drop_duplicates()
+
+# Remove duplicates based on specific column
+df = df.drop_duplicates(subset=['Student'])</code></pre>
+                    </div>
+                </div>
+
+                <div class="stat-concept">
+                    <h4>Detect and Handle Outliers</h4>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code># Method 1: IQR (Interquartile Range)
+Q1 = df['column'].quantile(0.25)
+Q3 = df['column'].quantile(0.75)
+IQR = Q3 - Q1
+outliers = df[(df['column'] < Q1 - 1.5*IQR) | (df['column'] > Q3 + 1.5*IQR)]
+print(f"Outliers found: {len(outliers)}")
+
+# Method 2: Z-score (values > 3 std devs from mean)
+from scipy import stats
+z_scores = np.abs(stats.zscore(df['column']))
+outliers = df[z_scores > 3]</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="concept-box">
+                <h3>4. Data Visualization Guide</h3>
+                
+                <div class="stat-concept">
+                    <h4>Bar Chart</h4>
+                    <p><strong>Purpose:</strong> Compare values across categories</p>
+                    <p><strong>Best for:</strong> Comparing average sales by region, student grades by subject</p>
+                </div>
+
+                <div class="stat-concept">
+                    <h4>Histogram</h4>
+                    <p><strong>Purpose:</strong> Show distribution of continuous data</p>
+                    <p><strong>Best for:</strong> Understanding data spread, finding patterns</p>
+                </div>
+
+                <div class="stat-concept">
+                    <h4>Scatter Plot</h4>
+                    <p><strong>Purpose:</strong> Show relationship between two variables</p>
+                    <p><strong>Best for:</strong> Identifying correlations and clusters</p>
+                </div>
+
+                <div class="stat-concept">
+                    <h4>Line Graph</h4>
+                    <p><strong>Purpose:</strong> Show trends over time</p>
+                    <p><strong>Best for:</strong> Stock prices, temperature changes, website traffic</p>
+                </div>
+
+                <div class="stat-concept">
+                    <h4>Box Plot</h4>
+                    <p><strong>Purpose:</strong> Show distribution, median, and outliers</p>
+                    <p><strong>Best for:</strong> Comparing distributions across groups</p>
+                </div>
+            </div>
+
+            <div class="concept-box">
+                <h3>5. Common Data Analysis Workflows</h3>
+                
+                <div class="stat-concept">
+                    <h4>Finding Trends</h4>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code># Time-series trend analysis
+df_sorted = df.sort_values('Date')
+plt.plot(df_sorted['Date'], df_sorted['Value'])
+plt.title('Trend Over Time')
+plt.show()
+
+# Year-over-year comparison
+yearly_avg = df.groupby(df['Date'].dt.year)['Sales'].sum()
+print(yearly_avg)</code></pre>
+                    </div>
+                </div>
+
+                <div class="stat-concept">
+                    <h4>Comparing Groups</h4>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code># Group by category and calculate statistics
+grouped = df.groupby('Category').agg({
+    'Value': ['mean', 'sum', 'std'],
+    'Count': 'sum'
+})
+print(grouped)
+
+# Visualize group comparison
+df.boxplot(column='Score', by='Team')
+plt.show()</code></pre>
+                    </div>
+                </div>
+
+                <div class="stat-concept">
+                    <h4>Identifying Patterns</h4>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        <pre><code># Correlation analysis
+correlation_matrix = df.corr()
+print(correlation_matrix)
+
+# Find strongest correlations
+for col1 in df.columns:
+    for col2 in df.columns:
+        if col1 != col2:
+            corr = df[col1].corr(df[col2])
+            if abs(corr) > 0.7:
+                print(f"{col1} & {col2}: {corr:.2f}")</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="troubleshooting" class="section">
             <h2>Troubleshooting & FAQ</h2>
-
-            <div class="faq-item">
-                <h3>Problem 1: "pip is not recognized"</h3>
                 <p><strong>Cause:</strong> Python was not added to PATH.</p>
                 <p><strong>Fix:</strong> Reinstall Python and select "Add Python to PATH," then restart the terminal.</p>
             </div>

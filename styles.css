@@ -522,3 +522,104 @@ html {
     width: 100%;
     min-height: 100vh;
 }
+
+/* Example and Concept Boxes */
+.example-box {
+    background-color: #f0f9ff;
+    border-left: 4px solid var(--primary-color);
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 8px;
+    box-shadow: var(--card-shadow);
+}
+
+.example-box h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.example-box ol {
+    margin-left: 1.5rem;
+    margin-top: 1rem;
+}
+
+.example-box li {
+    margin: 0.5rem 0;
+}
+
+.output-box {
+    background-color: #1e293b;
+    color: #e2e8f0;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    border-radius: 8px;
+    overflow-x: auto;
+    border: 1px solid #334155;
+}
+
+.output-box h4 {
+    color: #60a5fa;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+}
+
+.output-box pre {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.concept-box {
+    background-color: #f8fafc;
+    border: 1px solid var(--border-color);
+    padding: 2rem;
+    margin: 2rem 0;
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+}
+
+.concept-box h3 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 0.5rem;
+}
+
+.stat-concept {
+    margin: 1.5rem 0;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 8px;
+    border-left: 3px solid var(--accent-color);
+}
+
+.stat-concept h4 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.stat-concept p {
+    margin: 0.5rem 0;
+    line-height: 1.6;
+}
+
+.stat-concept code {
+    background-color: #f1f5f9;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    color: #dc2626;
+}
+
+.stat-concept ul {
+    margin-left: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.stat-concept li {
+    margin: 0.3rem 0;
+}
+
