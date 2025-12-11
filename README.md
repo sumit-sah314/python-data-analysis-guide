@@ -4,18 +4,16 @@ A professional instructional webpage teaching beginners how to perform basic dat
 
 ## 🌐 Live Demo
 
-**Live URL:** `https://YOUR-USERNAME.github.io/web-page/`
-
-(Replace YOUR-USERNAME with your actual GitHub username after deployment)
+**Live URL:** `https://sumit-sah314.github.io/python-data-analysis-guide/`
 
 ## 🔒 Password Protection
 
-This site is password protected. The default password is: `python2025`
+This site is password protected. The password is: `Tech3303`
 
 **To change the password:**
 1. Open `auth.js`
-2. Find the line: `const CORRECT_PASSWORD = "python2025";`
-3. Change `"python2025"` to your desired password
+2. Find the line: `const CORRECT_PASSWORD = "Tech3303";`
+3. Change `"Tech3303"` to your desired password
 4. Save and push to GitHub
 
 ## 🚀 Deploying to GitHub Pages (Free)
